@@ -34,7 +34,7 @@ import org.jfree.ui.RefineryUtilities;
 
 import javax.swing.*;
 
-public class StrokeDisplay extends ApplicationFrame implements StrokeBuilderListener {
+public class TargetOriginDisplay extends ApplicationFrame implements StrokeBuilderListener {
 
 
     public void strokeBuilt(Stroke stroke, double timeEllapsed) {
@@ -58,8 +58,8 @@ public class StrokeDisplay extends ApplicationFrame implements StrokeBuilderList
 
     }
 
-    public StrokeDisplay() {
-        super("Stroke: Monitor Display");
+    public TargetOriginDisplay() {
+        super("Stroke: Terminate at Origin");
         JPanel jPanel = createScatterPanel(new ArrayList<>(), "...");
         jPanel.setPreferredSize(new Dimension(500, 270));
         this.setContentPane((jPanel));
@@ -73,10 +73,12 @@ public class StrokeDisplay extends ApplicationFrame implements StrokeBuilderList
 
     public XYDataset createDataset(ArrayList<Point> points) {
 
+        Point origin = points.isEmpty() ? new Point(0,0) : points.get(points.size()-1);
+
         XYSeriesCollection dataset = new XYSeriesCollection();
         XYSeries path = new XYSeries("path");
 
-        for (Point p : points) { path.add(p.x, p.y); }
+        for (Point p : points) { path.add(p.x - origin.x, p.y - origin.y); }
         dataset.addSeries(path);
 
         return dataset;
@@ -100,7 +102,7 @@ public class StrokeDisplay extends ApplicationFrame implements StrokeBuilderList
         NumberAxis var3 = (NumberAxis)var1.getDomainAxis();
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        var3.setLowerBound(0);
+        var3.setLowerBound(screenSize.getWidth() * -1.0);
         var3.setUpperBound(screenSize.getWidth());
 
 
@@ -114,7 +116,7 @@ public class StrokeDisplay extends ApplicationFrame implements StrokeBuilderList
         var3.setAutoRangeIncludesZero(false);
 
         NumberAxis var5 = (NumberAxis)var1.getRangeAxis();
-        var5.setLowerBound(0);
+        var5.setLowerBound(screenSize.getHeight() * -1.0);
         var5.setUpperBound(screenSize.getHeight());
 
         // AttributedString var6 = new AttributedString("kg x 106");

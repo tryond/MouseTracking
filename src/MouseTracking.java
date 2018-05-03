@@ -7,9 +7,11 @@ public class MouseTracking {
         StrokeBuilder strokeBuilder = new StrokeBuilder();
         StrokeDisplay strokeDisplay = new StrokeDisplay();
 
-        strokeDisplay.pack();
-        RefineryUtilities.centerFrameOnScreen(strokeDisplay);
-        strokeDisplay.setVisible(true);
+        // TEST
+        TargetOriginDisplay targetOriginDisplay = new TargetOriginDisplay();
+
+        // TEST
+        strokeBuilder.addListener(targetOriginDisplay);
 
         strokeBuilder.addListener(strokeDisplay);
         cursorTracker.addListener(strokeBuilder);
