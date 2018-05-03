@@ -18,26 +18,25 @@ public class CursorTracker implements NativeMouseInputListener {
 
     public void nativeMouseClicked(NativeMouseEvent e) {
 
-        // System.out.println("Mouse Clicked");
-
-        for (CursorTrackerListener listener : listeners) {
-            listener.cursorClicked(e.getX(), e.getY());
-        }
+//        System.out.println("Mouse Clicked");
+//
+//        for (CursorTrackerListener listener : listeners) {
+//            listener.cursorClicked(e.getX(), e.getY());
+//        }
     }
 
     public void nativeMouseMoved(NativeMouseEvent e) {
 
-        // System.out.println("Mouse Moved: " + e.getX() + ", " + e.getY());
+//        System.out.println("Mouse Moved: " + e.getX() + ", " + e.getY());
 
         for (CursorTrackerListener listener : listeners) {
             listener.cursorMoved(e.getX(), e.getY());
         }
     }
 
-    // Not in use for cursor tracker
     public void nativeMousePressed(NativeMouseEvent e) {
 
-        // System.out.println("Pressed");
+//        System.out.println("Pressed");
 
         for (CursorTrackerListener listener : listeners) {
             listener.cursorClicked(e.getX(), e.getY());
@@ -46,7 +45,7 @@ public class CursorTracker implements NativeMouseInputListener {
 
     public void nativeMouseDragged(NativeMouseEvent e) {
 
-        // System.out.println("Dragged");
+        //  System.out.println("Dragged");
 
 //        for (CursorTrackerListener listener : listeners) {
 //            listener.cursorClicked(e.getX(), e.getY());
