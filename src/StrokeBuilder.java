@@ -6,13 +6,16 @@ public class StrokeBuilder implements CursorTrackerListener {
 
     // Class Attributes
     private final double TIMEOUT_SECONDS = 0.25;             // amount of time before building times out
+
     private List<Stroke> strokeList = new ArrayList<>();     // Strokes constructed thus far
     private Stroke currentStroke = new Stroke();             // current Stroke
-    private double strokeDuration = 0.0;                     // stroke time from start to finish
+
+    private double strokeDuration = 0.0;                                // stroke time from start to finish
     private List<StrokeBuilderListener> listeners = new ArrayList<>();  // listeners need to be notified when new Stroke built
-    private boolean nowBuilding = false;                    // true if currently constructing a Stroke
-    private long lastPositionUpdate = System.nanoTime();    // time of last move
+
+    private long updateTime = System.nanoTime();            // time of last stroke update
     private long startTime = System.nanoTime();             // time of last stroke start
+    private boolean nowBuilding = false;                    // true if currently constructing a Stroke
 
     // CursorTrackerListener: runs when cursor is moved
     public void cursorMoved(int x, int y) {
@@ -34,11 +37,6 @@ public class StrokeBuilder implements CursorTrackerListener {
         }
     }
 
-    // adds point (x, y) to the current stroke
-    public void addPoint(int x, int y) {
-        currentStroke.addPoint(new Point(x, y));
-    }
-
     // add listener to be notified of new Stroke's contstruction
     public void addListener(StrokeBuilderListener listener) {
         listeners.add(listener);
@@ -47,12 +45,9 @@ public class StrokeBuilder implements CursorTrackerListener {
     // notifies all listeners that a stroke has been created
     public void notifyListeners() {
 
-        // compute time taken to create stroke
-        strokeDuration = (System.nanoTime() - startTime) / 1e9;
-
         // let all listeners know that new stroke has been created
         for (StrokeBuilderListener listener : listeners) {
-            listener.strokeBuilt(currentStroke, strokeDuration);
+            listener.strokeBuilt(currentStroke);
         }
     }
 
@@ -62,7 +57,7 @@ public class StrokeBuilder implements CursorTrackerListener {
         currentStroke = new Stroke();
         addPoint(x, y);
         startTime = System.nanoTime();
-        lastPositionUpdate = System.nanoTime();
+        updateTime = System.nanoTime();
         nowBuilding = true;
     }
 
@@ -70,7 +65,7 @@ public class StrokeBuilder implements CursorTrackerListener {
     public void updateStroke(int x, int y) {
 
         addPoint(x, y);
-        lastPositionUpdate = System.nanoTime();
+        updateTime = System.nanoTime();
         nowBuilding = true;
     }
 
@@ -79,14 +74,24 @@ public class StrokeBuilder implements CursorTrackerListener {
 
         nowBuilding = false;
         addPoint(x, y);
-        strokeList.add(currentStroke);
 
+        // compute time taken to create stroke
+        strokeDuration = (System.nanoTime() - startTime) / 1e9;
+        currentStroke.setDuration(strokeDuration);
+
+        strokeList.add(currentStroke);
         notifyListeners();
+    }
+
+    // adds point (x, y) to the current stroke
+    public void addPoint(int x, int y) {
+        double timeDiff = (System.nanoTime() - updateTime) / 1e9;
+        currentStroke.addPoint(new Point(x, y), timeDiff);
     }
 
     // has the cursor been idle for longer than TIMEOUT_SECONDS
     public boolean cursorIsIdle() {
-        double timeDiff = (System.nanoTime() - lastPositionUpdate) / 1e9;
+        double timeDiff = (System.nanoTime() - updateTime) / 1e9;
         return timeDiff > TIMEOUT_SECONDS;
     }
 }

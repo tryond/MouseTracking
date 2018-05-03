@@ -12,49 +12,23 @@ public class CursorTracker implements NativeMouseInputListener {
 
     private List<CursorTrackerListener> listeners = new ArrayList<>();
 
-    public void addListener(CursorTrackerListener toAdd) {
-        listeners.add(toAdd);
-    }
-
-    public void nativeMouseClicked(NativeMouseEvent e) {
-
-//        System.out.println("Mouse Clicked");
-//
-//        for (CursorTrackerListener listener : listeners) {
-//            listener.cursorClicked(e.getX(), e.getY());
-//        }
-    }
-
     public void nativeMouseMoved(NativeMouseEvent e) {
-
-//        System.out.println("Mouse Moved: " + e.getX() + ", " + e.getY());
 
         for (CursorTrackerListener listener : listeners) {
             listener.cursorMoved(e.getX(), e.getY());
         }
     }
-
     public void nativeMousePressed(NativeMouseEvent e) {
-
-//        System.out.println("Pressed");
 
         for (CursorTrackerListener listener : listeners) {
             listener.cursorClicked(e.getX(), e.getY());
         }
     }
 
-    public void nativeMouseDragged(NativeMouseEvent e) {
-
-        //  System.out.println("Dragged");
-
-//        for (CursorTrackerListener listener : listeners) {
-//            listener.cursorClicked(e.getX(), e.getY());
-//        }
-    }
-
-    public void nativeMouseReleased(NativeMouseEvent e) {
-        // System.out.println("Mouse Released: " + e.getButton());
-    }
+    // not in use
+    public void nativeMouseDragged(NativeMouseEvent e) {}
+    public void nativeMouseReleased(NativeMouseEvent e) {}
+    public void nativeMouseClicked(NativeMouseEvent e) {}
 
     public CursorTracker() {
         // Set global screen hook
@@ -78,4 +52,7 @@ public class CursorTracker implements NativeMouseInputListener {
         GlobalScreen.addNativeMouseMotionListener(this);
     }
 
+    public void addListener(CursorTrackerListener toAdd) {
+        listeners.add(toAdd);
+    }
 }

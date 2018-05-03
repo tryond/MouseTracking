@@ -37,14 +37,14 @@ import javax.swing.*;
 public class TargetOriginDisplay extends ApplicationFrame implements StrokeBuilderListener {
 
 
-    public void strokeBuilt(Stroke stroke, double timeEllapsed) {
+    public void strokeBuilt(Stroke stroke) {
 
 
         getContentPane().removeAll();
         this.revalidate();
 
         // REPLACE TIME in CreateScatterPanel
-        JPanel jPanel = createScatterPanel((ArrayList<Point>) stroke.pointList, Double.toString(timeEllapsed));
+        JPanel jPanel = createScatterPanel((ArrayList<Point>) stroke.pointList, Double.toString(stroke.duration));
         jPanel.setPreferredSize(new Dimension(500, 270));
         this.setContentPane((jPanel));
 
@@ -85,51 +85,40 @@ public class TargetOriginDisplay extends ApplicationFrame implements StrokeBuild
     }
 
     public JPanel createScatterPanel(ArrayList<Point> points, String time) {
-        JFreeChart var0 = ChartFactory.createScatterPlot(("Time: " + time), "X", "Y", createDataset(points));
 
-        XYPlot var1 = (XYPlot)var0.getPlot();
-        var1.setBackgroundPaint((Paint)null);
-        var1.setAxisOffset(RectangleInsets.ZERO_INSETS);
-        var1.setOutlineVisible(false);
+        JFreeChart chart = ChartFactory.createScatterPlot(("Time: " + time), "X", "Y", createDataset(points));
 
-        XYDotRenderer var2 = new XYDotRenderer();
-        var2.setDotWidth(4);
-        var2.setDotHeight(4);
-        var1.setRenderer(var2);
-        var1.setDomainCrosshairVisible(true);
-        var1.setRangeCrosshairVisible(true);
+        XYPlot plot = (XYPlot)chart.getPlot();
+        plot.setBackgroundPaint((Paint)null);
+        plot.setAxisOffset(RectangleInsets.ZERO_INSETS);
+        plot.setOutlineVisible(false);
 
-        NumberAxis var3 = (NumberAxis)var1.getDomainAxis();
+        XYDotRenderer renderer = new XYDotRenderer();
+        renderer.setDotWidth(4);
+        renderer.setDotHeight(4);
+        plot.setRenderer(renderer);
+        plot.setDomainCrosshairVisible(true);
+        plot.setRangeCrosshairVisible(true);
+
+        NumberAxis xAxis = (NumberAxis)plot.getDomainAxis();
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        var3.setLowerBound(screenSize.getWidth() * -1.0);
-        var3.setUpperBound(screenSize.getWidth());
+        xAxis.setLowerBound(screenSize.getWidth() * -1.0);
+        xAxis.setUpperBound(screenSize.getWidth());
 
+        xAxis.setPositiveArrowVisible(true);
+        xAxis.setAutoRangeIncludesZero(false);
 
+        NumberAxis yAxis = (NumberAxis)plot.getRangeAxis();
+        yAxis.setLowerBound(screenSize.getHeight() * -1.0);
+        yAxis.setUpperBound(screenSize.getHeight());
+        yAxis.setPositiveArrowVisible(true);
 
-        // AttributedString var4 = new AttributedString("H20");
-        // var4.addAttribute(TextAttribute.SUPERSCRIPT, TextAttribute.SUPERSCRIPT_SUB, 1, 2);
+        ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setMouseWheelEnabled(true);
 
-        // var3.setAttributedLabel(var4);
+        chartPanel.getChart().getXYPlot().getRangeAxis().setInverted(true);
 
-        var3.setPositiveArrowVisible(true);
-        var3.setAutoRangeIncludesZero(false);
-
-        NumberAxis var5 = (NumberAxis)var1.getRangeAxis();
-        var5.setLowerBound(screenSize.getHeight() * -1.0);
-        var5.setUpperBound(screenSize.getHeight());
-
-        // AttributedString var6 = new AttributedString("kg x 106");
-        // var6.addAttribute(TextAttribute.SUPERSCRIPT, TextAttribute.SUPERSCRIPT_SUPER, 7, 8);
-        // var5.setAttributedLabel(var6);
-
-        var5.setPositiveArrowVisible(true);
-
-        ChartPanel var7 = new ChartPanel(var0);
-        var7.setMouseWheelEnabled(true);
-
-        var7.getChart().getXYPlot().getRangeAxis().setInverted(true);
-
-        return var7;
+        return chartPanel;
     }
 }

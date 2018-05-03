@@ -19,7 +19,7 @@ import org.jfree.ui.RefineryUtilities;
 
 import javax.swing.*;
 
-public class StrokeDisplay extends ApplicationFrame implements StrokeBuilderListener {
+public class OverlapStrokeDisplay extends ApplicationFrame implements StrokeBuilderListener {
 
 
 
@@ -38,7 +38,7 @@ public class StrokeDisplay extends ApplicationFrame implements StrokeBuilderList
         this.revalidate();
     }
 
-    public StrokeDisplay() {
+    public OverlapStrokeDisplay() {
         super("Stroke: Monitor Display");
         JPanel jPanel = createScatterPanel(new ArrayList<>(), "...");
         jPanel.setPreferredSize(new Dimension(500, 270));
@@ -65,6 +65,7 @@ public class StrokeDisplay extends ApplicationFrame implements StrokeBuilderList
         JFreeChart chart = ChartFactory.createScatterPlot(("Time: " + time), "X", "Y", createDataset(points));
 
         XYPlot plot = (XYPlot)chart.getPlot();
+
         plot.setBackgroundPaint((Paint)null);
         plot.setAxisOffset(RectangleInsets.ZERO_INSETS);
         plot.setOutlineVisible(false);
