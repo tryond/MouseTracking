@@ -19,87 +19,39 @@ import org.jfree.ui.RefineryUtilities;
 
 import javax.swing.*;
 
-public class StrokeDisplay extends ApplicationFrame implements StrokeBuilderListener {
+public abstract class StrokeDisplay extends ApplicationFrame implements StrokeBuilderListener {
+
+    public StrokeDisplay() {
+        this("Stroke Display");
+    }
+
+    public StrokeDisplay(String frameTitle) {
+        super(frameTitle);
+
+        // create Dataset
+        XYDataset dataset = createDataset(new Stroke());
+
+        // create Panel
+        JPanel jPanel = createPanel(new Stroke(), dataset);
+
+        // set frame contents to returned panel
+        this.setContentPane((jPanel));
+        this.pack();
+        this.setVisible(true);
+        this.setAlwaysOnTop(true);
+        RefineryUtilities.centerFrameOnScreen(this);
+    }
+
+
+    // ABSTRACT METHODS
+    public abstract XYDataset createDataset(Stroke stroke);
+    public abstract JPanel createPanel(Stroke stroke, XYDataset dataset);
+    public abstract void updatePanel(Stroke stroke);
 
 
 
     // StrokeBuilderListener: runs every time a new stroke is created
     public void strokeBuilt(Stroke stroke) {
-
-
-        getContentPane().removeAll();
-        this.revalidate();
-
-        // REPLACE TIME in CreateScatterPanel
-        JPanel jPanel = createScatterPanel((ArrayList<Point>) stroke.pointList, Double.toString(stroke.duration));
-        jPanel.setPreferredSize(new Dimension(500, 270));
-        this.setContentPane((jPanel));
-
-        this.revalidate();
-    }
-
-    public StrokeDisplay() {
-        super("Stroke: Monitor Display");
-        JPanel jPanel = createScatterPanel(new ArrayList<>(), "...");
-        jPanel.setPreferredSize(new Dimension(500, 270));
-        this.setContentPane((jPanel));
-
-        this.pack();
-        RefineryUtilities.centerFrameOnScreen(this);
-        this.setVisible(true);
-        this.setAlwaysOnTop(true);
-    }
-
-    public XYDataset createDataset(ArrayList<Point> points) {
-
-        XYSeriesCollection dataset = new XYSeriesCollection();
-        XYSeries path = new XYSeries("path");
-
-        for (Point p : points) { path.add(p.x, p.y); }
-        dataset.addSeries(path);
-
-        return dataset;
-    }
-
-    public JPanel createScatterPanel(ArrayList<Point> points, String time) {
-        JFreeChart chart = ChartFactory.createScatterPlot(("Time: " + time), "X", "Y", createDataset(points));
-
-        XYPlot plot = (XYPlot)chart.getPlot();
-        plot.setBackgroundPaint((Paint)null);
-        plot.setAxisOffset(RectangleInsets.ZERO_INSETS);
-        plot.setOutlineVisible(false);
-
-        XYDotRenderer renderer = new XYDotRenderer();
-        renderer.setDotWidth(4);
-        renderer.setDotHeight(4);
-        plot.setRenderer(renderer);
-        plot.setDomainCrosshairVisible(true);
-        plot.setRangeCrosshairVisible(true);
-
-        NumberAxis xAxis = (NumberAxis)plot.getDomainAxis();
-
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        xAxis.setLowerBound(0);
-        xAxis.setUpperBound(screenSize.getWidth());
-
-
-
-
-        xAxis.setPositiveArrowVisible(true);
-        xAxis.setAutoRangeIncludesZero(false);
-
-        NumberAxis yAxis = (NumberAxis)plot.getRangeAxis();
-        yAxis.setLowerBound(0);
-        yAxis.setUpperBound(screenSize.getHeight());
-
-
-        yAxis.setPositiveArrowVisible(true);
-
-        ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setMouseWheelEnabled(true);
-
-        chartPanel.getChart().getXYPlot().getRangeAxis().setInverted(true);
-
-        return chartPanel;
+        updatePanel(stroke);
     }
 }

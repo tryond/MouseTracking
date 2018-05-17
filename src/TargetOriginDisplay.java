@@ -25,6 +25,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYDotRenderer;
+import org.jfree.chart.renderer.xy.XYShapeRenderer;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
@@ -37,6 +38,8 @@ import javax.swing.*;
 public class TargetOriginDisplay extends ApplicationFrame implements StrokeBuilderListener {
 
 
+    final Color[] colors = {Color.red,Color.yellow,Color.pink,Color.blue,Color.cyan};
+
     public void strokeBuilt(Stroke stroke) {
 
 
@@ -44,7 +47,7 @@ public class TargetOriginDisplay extends ApplicationFrame implements StrokeBuild
         this.revalidate();
 
         // REPLACE TIME in CreateScatterPanel
-        JPanel jPanel = createScatterPanel((ArrayList<Point>) stroke.pointList, Double.toString(stroke.duration));
+        JPanel jPanel = createScatterPanel((ArrayList<Point>) stroke.getPointList(), Double.toString(stroke.getDuration()));
         jPanel.setPreferredSize(new Dimension(500, 270));
         this.setContentPane((jPanel));
 
@@ -93,10 +96,28 @@ public class TargetOriginDisplay extends ApplicationFrame implements StrokeBuild
         plot.setAxisOffset(RectangleInsets.ZERO_INSETS);
         plot.setOutlineVisible(false);
 
-        XYDotRenderer renderer = new XYDotRenderer();
-        renderer.setDotWidth(4);
-        renderer.setDotHeight(4);
+        // XYDotRenderer renderer = new XYDotRenderer();
+        // renderer.setDotWidth(2);
+        // renderer.setDotHeight(2);
+        // plot.setRenderer(renderer);
+
+
+        XYDotRenderer renderer = new XYDotRenderer() {
+            @Override
+            public Paint getItemPaint(int row, int column) {
+                try {
+                    return colors[3];
+                } catch (Exception e) {
+                    return colors[0];
+                }
+            }
+        };
+
+        renderer.setDotWidth(3);
+        renderer.setDotHeight(3);
         plot.setRenderer(renderer);
+
+
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(true);
 

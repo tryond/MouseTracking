@@ -19,7 +19,7 @@ import org.jfree.ui.RefineryUtilities;
 
 import javax.swing.*;
 
-public class OverlapStrokeDisplay extends ApplicationFrame implements StrokeBuilderListener {
+public class StrokeMonitorDisplay extends ApplicationFrame implements StrokeBuilderListener {
 
 
 
@@ -38,7 +38,7 @@ public class OverlapStrokeDisplay extends ApplicationFrame implements StrokeBuil
         this.revalidate();
     }
 
-    public OverlapStrokeDisplay() {
+    public StrokeMonitorDisplay() {
         super("Stroke: Monitor Display");
         JPanel jPanel = createScatterPanel(new ArrayList<>(), "...");
         jPanel.setPreferredSize(new Dimension(500, 270));
@@ -65,14 +65,17 @@ public class OverlapStrokeDisplay extends ApplicationFrame implements StrokeBuil
         JFreeChart chart = ChartFactory.createScatterPlot(("Time: " + time), "X", "Y", createDataset(points));
 
         XYPlot plot = (XYPlot)chart.getPlot();
-
         plot.setBackgroundPaint((Paint)null);
         plot.setAxisOffset(RectangleInsets.ZERO_INSETS);
         plot.setOutlineVisible(false);
 
         XYDotRenderer renderer = new XYDotRenderer();
+
+        // CHANGES
         renderer.setDotWidth(2);
         renderer.setDotHeight(2);
+
+
         plot.setRenderer(renderer);
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(true);
@@ -80,15 +83,22 @@ public class OverlapStrokeDisplay extends ApplicationFrame implements StrokeBuil
         NumberAxis xAxis = (NumberAxis)plot.getDomainAxis();
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        xAxis.setLowerBound(0);
-        xAxis.setUpperBound(screenSize.getWidth());
+
+        // CHANGES
+        // xAxis.setLowerBound(0);
+        // xAxis.setUpperBound(screenSize.getWidth());
+
+
+
 
         xAxis.setPositiveArrowVisible(true);
         xAxis.setAutoRangeIncludesZero(false);
 
         NumberAxis yAxis = (NumberAxis)plot.getRangeAxis();
-        yAxis.setLowerBound(0);
-        yAxis.setUpperBound(screenSize.getHeight());
+
+        // CHANGES
+        // yAxis.setLowerBound(0);
+        // yAxis.setUpperBound(screenSize.getHeight());
 
 
         yAxis.setPositiveArrowVisible(true);
@@ -96,6 +106,7 @@ public class OverlapStrokeDisplay extends ApplicationFrame implements StrokeBuil
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setMouseWheelEnabled(true);
 
+        // CHANGES
         chartPanel.getChart().getXYPlot().getRangeAxis().setInverted(true);
 
         return chartPanel;
