@@ -1,8 +1,9 @@
 import java.awt.Point;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Stroke {
+public class Stroke implements Serializable {
 
     private List<Point> pointList = new ArrayList<>();  // list of points along path
     private List<Double> timeList = new ArrayList<>();  // time[k]: time from point[k-1] to point[k]
@@ -29,6 +30,16 @@ public class Stroke {
         timeList.add(time);
     }
 
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("");
+
+        return stringBuilder.toString();
+    }
+
+//    public void normalizeStroke() {
+//
+//    }
 
     // Speed
 

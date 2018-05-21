@@ -55,7 +55,7 @@ public class StrokeBuilder implements CursorTrackerListener {
     public void startStroke(int x, int y) {
 
         currentStroke = new Stroke();
-        addPoint(x, y);
+        addPoint(x, y, 0.0);
         startTime = System.nanoTime();
         updateTime = System.nanoTime();
         nowBuilding = true;
@@ -86,6 +86,12 @@ public class StrokeBuilder implements CursorTrackerListener {
     // adds point (x, y) to the current stroke
     public void addPoint(int x, int y) {
         double timeDiff = (System.nanoTime() - updateTime) / 1e9;
+        currentStroke.addPoint(new Point(x, y), timeDiff);
+    }
+
+    // adds point (x, y) to the current stroke
+    public void addPoint(int x, int y, Double time) {
+        double timeDiff = time;
         currentStroke.addPoint(new Point(x, y), timeDiff);
     }
 
