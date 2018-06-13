@@ -1,36 +1,48 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 public class StrokeLogger implements StrokeBuilderListener {
 
+    private final String N = "n_stroke.txt";
+    private final String NW = "nw_stroke.txt";
+    private final String W = "w_stroke.txt";
+    private final String SW = "sw_stroke.txt";
+    private final String S = "s_stroke.txt";
+    private final String SE = "se_stroke.txt";
+    private final String E = "e_stroke.txt";
+    private final String NE = "ne_stroke.txt";
+
+
+
     public void strokeBuilt(Stroke stroke) {
-        System.out.println("Stroke Built");
+
+        stroke.normalizeStroke();
+        logStroke(stroke);
     }
 
 
-//    public void logStroke(Stroke stroke) {
-//        try {
-//
-//            FileOutputStream = new FileOutputStream(new File("myObjects.txt"));
-//
-//
-//        }
-//        catch (FileNotFoundException ex) {
-//            System.out.println("File not found");
-//            ex.printStackTrace();
-//        }
-//        catch (IOException ex) {
-//            System.out.println("Error initializing stream");
-//            ex.printStackTrace();
-//        }
-//        catch (ClassNotFoundException ex) {
-//            System.out.println("Class not found");
-//            ex.printStackTrace();
-//        }
-//
-//    }
+    public StrokeLogger() {
+
+        // try
+
+
+
+    }
+
+    public void logStroke(Stroke stroke) {
+
+        try(FileWriter fw = new FileWriter("myfile.txt", true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter out = new PrintWriter(bw))
+        {
+            out.println("the text");
+            //more code
+            out.println("more text");
+            //more code
+        } catch (IOException e) {
+            //exception handling left as an exercise for the reader
+        }
+
+    }
 
 
 

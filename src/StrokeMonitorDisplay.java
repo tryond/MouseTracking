@@ -26,18 +26,7 @@ public class StrokeMonitorDisplay extends ApplicationFrame implements StrokeBuil
     // StrokeBuilderListener: runs every time a new stroke is created
     public void strokeBuilt(Stroke stroke) {
 
-        // DEBUG
-        int i = 0;
-        for (Point point : stroke.getPointList()) {
-            System.out.println(point + stroke.getTimeList().get(i++).toString());
-            if (i > 5) break;
-        }
-
-        Double average = 0.0;
-        for (Double time : stroke.getTimeList()) average += time;
-        average /= stroke.getTimeList().size();
-        System.out.println("Average Time: " + average);
-
+        System.out.println(stroke.getDirection());
 
         getContentPane().removeAll();
         this.revalidate();
