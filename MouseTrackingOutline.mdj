@@ -87,7 +87,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Stroke",
+											"text": "main.Stroke",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -375,7 +375,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "CursorTracker",
+											"text": "main.CursorTracker",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -493,7 +493,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "-listeners: CursorTrackerListener[0..*]",
+											"text": "-listeners: main.CursorTrackerListener[0..*]",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -548,7 +548,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+addListener(CursorTrackerListener)",
+											"text": "+addListener(main.CursorTrackerListener)",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -726,7 +726,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "CursorTrackerListener",
+											"text": "main.CursorTrackerListener",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -1075,7 +1075,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "StrokeBuilderListener",
+											"text": "main.StrokeBuilderListener",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -1394,7 +1394,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "StrokeBuilder",
+											"text": "main.StrokeBuilder",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -1512,7 +1512,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "-listeners: StrokeBuilderListener[0..*]",
+											"text": "-listeners: main.StrokeBuilderListener[0..*]",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -1567,7 +1567,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+addListener(StrokeBuilderListener)",
+											"text": "+addListener(main.StrokeBuilderListener)",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -1744,7 +1744,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "StrokeDisplay",
+											"text": "main.StrokeDisplay",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -4318,7 +4318,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "StrokeMonitorDisplay",
+											"text": "main.StrokeMonitorDisplay",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -5256,7 +5256,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Stroke",
+					"name": "main.Stroke",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -5317,7 +5317,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "CursorTracker",
+					"name": "main.CursorTracker",
 					"ownedElements": [
 						{
 							"_type": "UMLInterfaceRealization",
@@ -5376,7 +5376,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFjIWKVJtZoKJ4="
 									},
-									"name": "CursorTrackerListener",
+									"name": "main.CursorTrackerListener",
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
@@ -5403,7 +5403,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "CursorTrackerListener",
+					"name": "main.CursorTrackerListener",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -5493,7 +5493,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "StrokeBuilderListener",
+					"name": "main.StrokeBuilderListener",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -5569,7 +5569,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "StrokeBuilder",
+					"name": "main.StrokeBuilder",
 					"ownedElements": [
 						{
 							"_type": "UMLInterfaceRealization",
@@ -5628,7 +5628,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFjIXf/stuMhIE="
 									},
-									"name": "StrokeBuilderListener",
+									"name": "main.StrokeBuilderListener",
 									"visibility": "public",
 									"isStatic": false,
 									"isLeaf": false,
@@ -5655,7 +5655,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "StrokeDisplay",
+					"name": "main.StrokeDisplay",
 					"ownedElements": [
 						{
 							"_type": "UMLInterfaceRealization",
@@ -5900,7 +5900,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "StrokeMonitorDisplay",
+					"name": "main.StrokeMonitorDisplay",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",

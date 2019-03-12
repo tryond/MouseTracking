@@ -1,5 +1,5 @@
 4/26/18: 4 - Setup Skeleton
 4/27/18: 3 - Rough Prototype
 5/2/18: 6 - UML Design, Clean Prototype
-5/3/18: 6 - Refactor StrokeBuilder, Make StrokeDisplay Abstract (easily extendable)
+5/3/18: 6 - Refactor main.StrokeBuilder, Make main.StrokeDisplay Abstract (easily extendable)
 5/5/18: 2 - Neural Network Research
